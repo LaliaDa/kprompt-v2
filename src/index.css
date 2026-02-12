@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* 自定義全局背景，確保深色模式純度 */
+:root {
+  background-color: #000000;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
