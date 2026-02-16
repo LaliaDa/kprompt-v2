@@ -4,11 +4,21 @@ import { useState } from 'react';
 // [Type Definitions]
 // ==========================================
 interface PromptItem { label: string; value: string; icon?: string; }
-interface Theme { bgGradient: string; text: string; accent: string; card: string; btn: string; btnActive: string; visualizer: string; }
+interface Theme { 
+  bg: string;
+  bgGradient: string;
+  text: string; 
+  accent: string; 
+  card: string; 
+  btn: string; 
+  btnActive: string; 
+  visualizer: string; 
+  slider: string;
+}
 interface ModeData { id: string; title: string; desc: string; theme: Theme; subjects: PromptItem[]; scenarios: PromptItem[]; actions: PromptItem[]; styles: PromptItem[]; envs: PromptItem[]; cameras?: PromptItem[]; }
 
 // ==========================================
-// [Database] 數據核心 (內容保持不變)
+// [Database] 數據核心
 // ==========================================
 const COMMON_COMPOSITION: PromptItem[] = [
   { label: "單人特寫", value: "solo portrait of", icon: "👤" },
@@ -19,9 +29,20 @@ const COMMON_COMPOSITION: PromptItem[] = [
   { label: "對峙", value: "an intense scene of two characters facing each other,", icon: "⚡" }
 ];
 
+// 1. 次世代科幻 (Cyber) - 銀灰科技
 const DATA_CYBER: ModeData = {
   id: 'cyber', title: '次世代科幻', desc: 'Cyber & Sci-Fi',
-  theme: { bgGradient: 'bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#020617]', text: 'text-cyan-400', accent: 'border-cyan-500/50', card: 'bg-slate-900/60 border-cyan-500/20', btn: 'bg-slate-800/80 text-slate-300', btnActive: 'bg-cyan-600 text-white border-cyan-400', visualizer: 'from-[#2c3e50] to-[#3498db]' },
+  theme: { 
+    bg: 'bg-slate-50',
+    bgGradient: 'from-slate-100 to-slate-200', 
+    text: 'text-slate-800', 
+    accent: 'border-slate-300', 
+    card: 'bg-white border-slate-200 shadow-[0_4px_20px_rgba(0,0,0,0.03)]', 
+    btn: 'bg-slate-50 text-slate-500 border-slate-200 hover:bg-white hover:shadow-sm', 
+    btnActive: 'bg-slate-800 text-white shadow-lg shadow-slate-300/50 border-transparent', 
+    visualizer: 'from-slate-400 to-slate-600',
+    slider: 'accent-slate-800'
+  },
   subjects: [{ label: "賽博駭客", value: "cyberpunk hacker with neon tattoos", icon: "💻" }, { label: "戰術特勤", value: "special forces operator in full tactical gear", icon: "🥽" }, { label: "機甲巨龍", value: "giant mechanical dragon with steel scales", icon: "🐉" }, { label: "虛擬偶像", value: "virtual idol with holographic wings", icon: "🎤" }, { label: "生化人", value: "cyborg with exposed mechanical parts", icon: "🤖" }, { label: "星際戰士", value: "heavy armored space marine", icon: "🚀" }, { label: "機械女僕", value: "android maid with metallic skin", icon: "🎀" }, { label: "故障靈體", value: "digital ghost with data corruption effects", icon: "👻" }],
   scenarios: [{ label: "入侵主機", value: "hacking into a corporation mainframe", icon: "🔓" }, { label: "躲避追殺", value: "running away from police drones", icon: "🏃" }, { label: "天台抽菸", value: "smoking alone on a skyscraper rooftop", icon: "🚬" }, { label: "黑市交易", value: "engaging in an illegal black market trade", icon: "💰" }, { label: "穿越傳送", value: "stepping through a glowing dimensional portal", icon: "🌀" }],
   actions: [{ label: "戰鬥姿態", value: "in a fighting stance", icon: "🤺" }, { label: "駭客作業", value: "typing furiously on a holographic keyboard", icon: "⌨️" }, { label: "漂浮空中", value: "floating in zero gravity", icon: "🧚" }, { label: "手持武器", value: "aiming a futuristic weapon", icon: "🔫" }, { label: "高速奔跑", value: "sprinting at high speed", icon: "💨" }],
@@ -29,9 +50,20 @@ const DATA_CYBER: ModeData = {
   envs: [{ label: "霓虹雨夜", value: "against a backdrop of a cyberpunk city in heavy neon rain", icon: "🌧️" }, { label: "貧民窟", value: "situated in dirty cyberpunk slums", icon: "🏚️" }, { label: "太空站", value: "inside a sterile sci-fi space station", icon: "🛰️" }, { label: "電競室", value: "in a dark gaming room with RGB lighting", icon: "🎧" }, { label: "深海都市", value: "submerged in an underwater bioluminescent city", icon: "🌊" }, { label: "浮空島嶼", value: "standing on a floating island in the sky", icon: "☁️" }]
 };
 
+// 2. 極致寫實 (Realism) - 暖白極簡
 const DATA_REAL: ModeData = {
   id: 'real', title: '極致寫實', desc: 'Realism & Photo',
-  theme: { bgGradient: 'bg-gradient-to-br from-[#1c1917] via-[#292524] to-[#0c0a09]', text: 'text-orange-400', accent: 'border-orange-500/50', card: 'bg-stone-900/60 border-orange-500/20', btn: 'bg-stone-800/80 text-stone-300', btnActive: 'bg-orange-600 text-white border-orange-400', visualizer: 'from-[#8d6e63] to-[#d7ccc8]' },
+  theme: { 
+    bg: 'bg-orange-50/30',
+    bgGradient: 'from-orange-50/50 to-stone-100', 
+    text: 'text-stone-800', 
+    accent: 'border-stone-200', 
+    card: 'bg-white border-stone-200 shadow-[0_4px_20px_rgba(0,0,0,0.03)]', 
+    btn: 'bg-stone-50 text-stone-500 border-stone-200 hover:bg-white hover:shadow-sm', 
+    btnActive: 'bg-stone-800 text-white shadow-lg shadow-stone-300/50 border-transparent', 
+    visualizer: 'from-stone-400 to-stone-600',
+    slider: 'accent-stone-800'
+  },
   subjects: [{ label: "街頭老人", value: "old man with deep wrinkles", icon: "👴" }, { label: "極限運動", value: "extreme sports athlete", icon: "🧗" }, { label: "北歐少女", value: "scandinavian girl with freckles", icon: "👱‍♀️" }, { label: "戰地記者", value: "war photographer wearing a vest", icon: "📸" }, { label: "遊牧民族", value: "nomadic tribe member", icon: "⛺" }, { label: "太空人", value: "nasa astronaut in realistic suit", icon: "👩‍🚀" }, { label: "流浪貓", value: "stray cat with detailed fur", icon: "🐱" }, { label: "芭蕾舞者", value: "ballet dancer in a tutu", icon: "🩰" }],
   scenarios: [{ label: "久別重逢", value: "hugging someone tight during a reunion", icon: "🫂" }, { label: "暴風雨前", value: "facing dark storm clouds", icon: "⛈️" }, { label: "勝利吶喊", value: "screaming in victory", icon: "🏆" }, { label: "午後咖啡", value: "relaxing with a cup of coffee", icon: "☕" }, { label: "廢墟尋光", value: "exploring abandoned ruins", icon: "🔦" }],
   actions: [{ label: "直視鏡頭", value: "looking directly at the camera", icon: "👁️" }, { label: "交談", value: "talking candidly", icon: "🗣️" }, { label: "回眸", value: "looking back over the shoulder", icon: "🔙" }, { label: "自然行走", value: "walking naturally", icon: "🚶" }, { label: "大笑", value: "laughing out loud", icon: "😄" }, { label: "抽菸(暗示)", value: "holding a cigarette", icon: "🚬" }, { label: "在雨中", value: "standing in the pouring rain", icon: "☔" }],
@@ -40,9 +72,20 @@ const DATA_REAL: ModeData = {
   envs: [{ label: "自然光棚", value: "in a studio with soft window light", icon: "🪟" }, { label: "黃金時刻", value: "during golden hour sunset", icon: "🌅" }, { label: "東京街頭", value: "on a busy Tokyo street", icon: "🗼" }, { label: "冰島苔原", value: "in a mossy Iceland landscape", icon: "🏔️" }, { label: "撒哈拉", value: "amidst Sahara sand dunes", icon: "🐪" }, { label: "切爾諾貝利", value: "inside Chernobyl zone", icon: "☢️" }]
 };
 
+// 3. 魅惑人像 (Glamour) - 柔粉白瓷
 const DATA_GLAMOUR: ModeData = {
   id: 'glamour', title: '魅惑人像', desc: 'Glamour & Mood',
-  theme: { bgGradient: 'bg-gradient-to-br from-[#3d2b2e] via-[#4c0519] to-[#000000]', text: 'text-rose-400', accent: 'border-rose-500/50', card: 'bg-rose-950/60 border-rose-500/20', btn: 'bg-rose-900/40 text-rose-100', btnActive: 'bg-rose-600 text-white border-rose-400', visualizer: 'from-[#b76e79] to-[#f8bbd0]' },
+  theme: { 
+    bg: 'bg-rose-50/30',
+    bgGradient: 'from-rose-50/50 to-pink-50/50', 
+    text: 'text-rose-900', 
+    accent: 'border-rose-200', 
+    card: 'bg-white border-rose-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)]', 
+    btn: 'bg-rose-50/50 text-rose-400 border-rose-100 hover:bg-white hover:shadow-sm', 
+    btnActive: 'bg-rose-600 text-white shadow-lg shadow-rose-300/50 border-transparent', 
+    visualizer: 'from-rose-400 to-rose-600',
+    slider: 'accent-rose-600'
+  },
   subjects: [{ label: "純欲寫真", value: "gravure idol with soft skin", icon: "👙" }, { label: "濕身襯衫", value: "model wearing wet white shirt", icon: "🚿" }, { label: "高冷秘書", value: "office lady in pencil skirt", icon: "👓" }, { label: "膠衣賽博", value: "model in tight latex bodysuit", icon: "🖤" }, { label: "蛇蠍美人", value: "femme fatale in evening gown", icon: "💋" }, { label: "絲綢睡袍", value: "woman in satin silk slip dress", icon: "👘" }, { label: "兔女郎", value: "girl in playboy bunny suit", icon: "👯" }, { label: "空服員", value: "flight attendant in uniform", icon: "✈️" }],
   scenarios: [{ label: "微醺甦醒", value: "waking up in a messy bed", icon: "🛌" }, { label: "剛出浴", value: "wrapped in a white towel", icon: "🧖‍♀️" }, { label: "派對落寞", value: "sitting on stairs after party", icon: "👠" }, { label: "辦公室曖昧", value: "sitting on the boss's desk", icon: "💼" }, { label: "深夜電話", value: "talking on phone late night", icon: "📞" }],
   actions: [{ label: "咬嘴唇", value: "biting her lip", icon: "👄" }, { label: "撥弄頭髮", value: "playing with her hair", icon: "💇‍♀️" }, { label: "雙腿交叉", value: "crossing legs elegantly", icon: "🦵" }, { label: "跪姿", value: "kneeling on the floor", icon: "🛐" }, { label: "躺在床上", value: "lying on her back", icon: "🛌" }, { label: "男友視角", value: "looking into the camera (pov)", icon: "👀" }, { label: "塗口紅", value: "applying red lipstick", icon: "💄" }],
@@ -50,9 +93,20 @@ const DATA_GLAMOUR: ModeData = {
   envs: [{ label: "豪華飯店", value: "in a luxury hotel room", icon: "🏨" }, { label: "清晨臥室", value: "in a sunlit bedroom", icon: "🌅" }, { label: "深夜車內", value: "inside a car at night", icon: "🚗" }, { label: "廢棄泳池", value: "in an abandoned swimming pool", icon: "🏊" }, { label: "落地窗前", value: "by floor-to-ceiling window", icon: "🏙️" }, { label: "頂樓酒吧", value: "at a rooftop bar", icon: "🍸" }]
 };
 
+// 4. 迷因漫畫 (Meme) - 清新薄荷
 const DATA_MEME: ModeData = {
   id: 'meme', title: '迷因漫畫', desc: 'Meme & Fun',
-  theme: { bgGradient: 'bg-gradient-to-br from-[#064e3b] via-[#022c22] to-[#000000]', text: 'text-lime-400', accent: 'border-lime-500/50', card: 'bg-green-950/60 border-lime-500/20', btn: 'bg-green-900/40 text-lime-100', btnActive: 'bg-lime-600 text-black border-lime-400', visualizer: 'from-[#a5d6a7] to-[#66bb6a]' },
+  theme: { 
+    bg: 'bg-emerald-50/30',
+    bgGradient: 'from-emerald-50/50 to-green-50/50', 
+    text: 'text-emerald-800', 
+    accent: 'border-emerald-200', 
+    card: 'bg-white border-emerald-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)]', 
+    btn: 'bg-emerald-50/50 text-emerald-600 border-emerald-100 hover:bg-white hover:shadow-sm', 
+    btnActive: 'bg-emerald-600 text-white shadow-lg shadow-emerald-300/50 border-transparent', 
+    visualizer: 'from-emerald-400 to-emerald-600',
+    slider: 'accent-emerald-600'
+  },
   subjects: [{ label: "Wojak", value: "Wojak face", icon: "😐" }, { label: "Pepe蛙", value: "Pepe the Frog", icon: "🐸" }, { label: "GigaChad", value: "GigaChad", icon: "🗿" }, { label: "Doge柴犬", value: "Doge shiba inu", icon: "🐕" }, { label: "女人吼貓", value: "Woman Yelling at a Cat", icon: "😿" }, { label: "Stonks男", value: "Meme Man Stonks", icon: "📈" }, { label: "Among Us", value: "Among Us Crewmate", icon: "📮" }],
   scenarios: [{ label: "股票暴跌", value: "looking at crashing stock graph", icon: "📉" }, { label: "寫程式崩潰", value: "stressing over chaotic code", icon: "💻" }, { label: "強顏歡笑", value: "hiding the pain", icon: "🥲" }, { label: "房子失火", value: "sitting in a burning room", icon: "🔥" }, { label: "警察追捕", value: "running from the police", icon: "🚔" }],
   actions: [{ label: "崩潰尖叫", value: "screaming in agony", icon: "😱" }, { label: "互指", value: "pointing fingers at each other", icon: "👉" }, { label: "比讚", value: "giving a thumbs up", icon: "👍" }, { label: "翻桌", value: "flipping a table", icon: "┻━┻" }],
@@ -74,6 +128,7 @@ const RATIO_OPTIONS = [
 export default function App() {
   const [view, setView] = useState<'hub' | 'cyber' | 'real' | 'glamour' | 'meme'>('hub');
   
+  // State
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [selectedComposition, setSelectedComposition] = useState<string[]>([]);
   const [selectedScenarios, setSelectedScenarios] = useState<string[]>([]);
@@ -81,14 +136,16 @@ export default function App() {
   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
   const [selectedEnvs, setSelectedEnvs] = useState<string[]>([]);
   const [selectedCameras, setSelectedCameras] = useState<string[]>([]);
-  const [ratio, setRatio] = useState("--ar 16:9");
   
+  const [ratio, setRatio] = useState("--ar 16:9");
+  const [outputParts, setOutputParts] = useState<{type: string, text: string}[]>([]);
+  
+  // Expert State
   const [isExpertMode, setIsExpertMode] = useState(false);
   const [stylize, setStylize] = useState(100);
   const [chaos, setChaos] = useState(0);
   const [weird, setWeird] = useState(0);
   const [version, setVersion] = useState("--v 6.0");
-  const [outputParts, setOutputParts] = useState<{type: string, text: string}[]>([]);
   const [diceRotate, setDiceRotate] = useState(false);
 
   const initMode = (modeData: ModeData) => {
@@ -198,30 +255,26 @@ export default function App() {
   // 1. Hub Page
   if (view === 'hub') {
     return (
-      // Root container: relative, full width, min height
-      <div className="relative w-full min-h-screen font-sans text-gray-100 overflow-x-hidden">
-        
+      <div className="relative w-full min-h-screen font-sans text-slate-700 bg-slate-50 overflow-x-hidden">
         {/* Fixed Background Layer */}
-        <div className="fixed inset-0 w-full h-full -z-10 bg-[#111827]">
-           {/* Decorative Blobs */}
-           <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#4a5568]/20 rounded-full blur-[100px]"></div>
-           <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#8d6e63]/20 rounded-full blur-[100px]"></div>
+        <div className="fixed inset-0 w-full h-full -z-10 bg-white">
+           <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-slate-100/50 rounded-full blur-[100px]"></div>
+           <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-gray-100/50 rounded-full blur-[100px]"></div>
         </div>
 
-        {/* Scrollable Content Layer */}
         <div className="w-full max-w-[1920px] mx-auto px-4 py-12 md:py-20 flex flex-col items-center">
-          <h1 className="text-4xl md:text-7xl font-black italic mb-2 tracking-tighter text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">V-PROMPT</h1>
-          <p className="text-gray-500 text-[10px] md:text-xs tracking-[0.5em] mb-12 uppercase font-medium text-center">Full Width Core // v20.0</p>
+          <h1 className="text-4xl md:text-7xl font-black italic mb-2 tracking-tighter text-center text-slate-800">V-PROMPT</h1>
+          <p className="text-slate-400 text-[10px] md:text-xs tracking-[0.5em] mb-12 uppercase font-medium text-center">Platinum Lab // v23.0</p>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-[1600px]">
             {[DATA_CYBER, DATA_REAL, DATA_GLAMOUR, DATA_MEME].map((mode) => (
-              <div key={mode.id} onClick={() => initMode(mode)} className={`group p-8 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 cursor-pointer transition-all hover:-translate-y-1 shadow-lg flex flex-col justify-between min-h-[240px]`}>
+              <div key={mode.id} onClick={() => initMode(mode)} className={`group p-8 rounded-3xl border border-slate-100 bg-white hover:border-slate-300 cursor-pointer transition-all hover:-translate-y-1 shadow-[0_4px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] flex flex-col justify-between min-h-[240px]`}>
                 <div>
                   <h2 className={`text-2xl font-bold mb-3 ${mode.theme.text}`}>{mode.title}</h2>
-                  <p className="text-gray-400 text-sm leading-relaxed">{mode.desc}</p>
+                  <p className="text-slate-500 text-sm leading-relaxed">{mode.desc}</p>
                 </div>
                 <div className="mt-4 text-right">
-                  <span className="text-2xl opacity-50 group-hover:opacity-100 transition-opacity">➔</span>
+                  <span className="text-2xl opacity-30 group-hover:opacity-100 transition-opacity text-slate-800">➔</span>
                 </div>
               </div>
             ))}
@@ -235,37 +288,37 @@ export default function App() {
   const theme = currentData.theme;
 
   const LivePreview = () => (
-    <div className={`mb-6 p-4 rounded-xl border ${theme.accent} border-opacity-30 bg-black/20 backdrop-blur-md flex flex-wrap gap-2 items-center text-xs md:text-sm font-medium text-gray-300 w-full`}>
-       <span className="text-[10px] uppercase text-gray-500 tracking-widest mr-2">PREVIEW:</span>
-       {selectedComposition[0] && <span className="px-2 py-1 rounded bg-white/10 border border-white/10">{getLabel(selectedComposition[0], COMMON_COMPOSITION)}</span>}
-       <span className="text-white/20">+</span>
-       {selectedSubjects[0] && <span className="px-2 py-1 rounded bg-white/10 border border-white/10">{getLabel(selectedSubjects[0], currentData.subjects)}</span>}
-       <span className="text-white/20">+</span>
-       {selectedScenarios[0] && <span className="px-2 py-1 rounded bg-white/10 border border-white/10">{getLabel(selectedScenarios[0], currentData.scenarios)}</span>}
+    <div className={`mb-6 p-4 rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-md flex flex-wrap gap-2 items-center text-xs md:text-sm font-medium text-slate-600 w-full shadow-sm`}>
+       <span className="text-[10px] uppercase text-slate-400 tracking-widest mr-2">PREVIEW:</span>
+       {selectedComposition[0] && <span className="px-2 py-1 rounded bg-slate-100 border border-slate-200 text-slate-700">{getLabel(selectedComposition[0], COMMON_COMPOSITION)}</span>}
+       <span className="text-slate-300">+</span>
+       {selectedSubjects[0] && <span className="px-2 py-1 rounded bg-slate-100 border border-slate-200 text-slate-700">{getLabel(selectedSubjects[0], currentData.subjects)}</span>}
+       <span className="text-slate-300">+</span>
+       {selectedScenarios[0] && <span className="px-2 py-1 rounded bg-slate-100 border border-slate-200 text-slate-700">{getLabel(selectedScenarios[0], currentData.scenarios)}</span>}
     </div>
   );
 
   return (
     // Root container for App Mode
-    <div className="relative w-full min-h-screen font-sans text-gray-100 overflow-x-hidden">
+    <div className="relative w-full min-h-screen font-sans text-slate-700 overflow-x-hidden bg-white">
       
       {/* Fixed Background Layer */}
-      <div className={`fixed inset-0 w-full h-full -z-10 ${theme.bgGradient} transition-colors duration-700`}></div>
+      <div className={`fixed inset-0 w-full h-full -z-10 bg-gradient-to-br ${theme.bgGradient} opacity-50`}></div>
 
       {/* Scrollable Content Layer */}
       <div className="w-full max-w-[1920px] mx-auto px-4 py-8 md:px-8 md:py-12 flex flex-col">
         
         {/* Header */}
-        <header className={`flex flex-col md:flex-row justify-between items-start md:items-center mb-6 p-5 rounded-2xl border ${theme.accent} border-opacity-20 ${theme.card} shadow-lg gap-4 w-full backdrop-blur-md`}>
+        <header className={`flex flex-col md:flex-row justify-between items-start md:items-center mb-6 p-5 rounded-3xl border border-white/60 bg-white/40 shadow-sm gap-4 w-full backdrop-blur-xl`}>
           <div><h1 className={`text-2xl font-bold italic ${theme.text}`}>{currentData.title}</h1></div>
           <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
-             <div className="flex items-center gap-2 bg-black/20 p-1.5 rounded-lg border border-white/5">
-                <span className="text-[10px] font-bold px-2 text-gray-400">EXPERT</span>
-                <button onClick={() => setIsExpertMode(!isExpertMode)} className={`w-9 h-5 rounded-full transition-colors relative ${isExpertMode ? theme.btnActive : 'bg-gray-600'}`}>
-                  <div className={`w-3 h-3 bg-white rounded-full absolute top-1 transition-all ${isExpertMode ? 'left-5' : 'left-1'}`}></div>
+             <div className="flex items-center gap-2 bg-white/60 p-1.5 rounded-xl border border-white shadow-inner">
+                <span className="text-[10px] font-bold px-2 text-slate-400">EXPERT</span>
+                <button onClick={() => setIsExpertMode(!isExpertMode)} className={`w-9 h-5 rounded-full transition-colors relative ${isExpertMode ? 'bg-slate-800' : 'bg-slate-300'}`}>
+                  <div className={`w-3 h-3 bg-white rounded-full absolute top-1 transition-all shadow-sm ${isExpertMode ? 'left-5' : 'left-1'}`}></div>
                 </button>
              </div>
-             <button onClick={() => setView('hub')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all bg-white/5 hover:bg-white/10 border border-white/10`}>ESC</button>
+             <button onClick={() => setView('hub')} className={`px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white hover:bg-slate-50 border border-slate-200 shadow-sm text-slate-600`}>ESC</button>
           </div>
         </header>
 
@@ -331,40 +384,40 @@ export default function App() {
         </Section>
 
         {isExpertMode && (
-          <div className={`mb-6 p-6 rounded-2xl border ${theme.accent} border-opacity-30 bg-black/20 backdrop-blur-md w-full`}>
+          <div className={`mb-6 p-6 rounded-3xl border border-slate-200 bg-white/70 backdrop-blur-md w-full shadow-sm`}>
             <div className="flex justify-between items-center mb-6">
                 <h3 className={`text-xs font-bold uppercase tracking-widest flex items-center gap-3 ${theme.text}`}><span className="text-lg">🎛️</span> 專家參數控制</h3>
                 <div className="flex gap-2">
                     {["--v 6.0", "--v 5.2", "--niji 6"].map(v => (
-                        <button key={v} onClick={() => setVersion(v)} className={`px-2 py-1 rounded text-[10px] font-mono border ${version === v ? theme.text + ' border-current' : 'text-gray-500 border-gray-700'}`}>{v}</button>
+                        <button key={v} onClick={() => setVersion(v)} className={`px-2 py-1 rounded text-[10px] font-mono border ${version === v ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-500 border-slate-200 hover:border-slate-400'}`}>{v}</button>
                     ))}
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="space-y-2">
-                <div className="flex justify-between text-xs font-bold text-gray-400"><span>風格化 (--s)</span><span className={theme.text}>{stylize}</span></div>
-                <input type="range" min="0" max="1000" value={stylize} onChange={e => setStylize(Number(e.target.value))} className="w-full h-1.5 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-white" />
+                <div className="flex justify-between text-xs font-bold text-slate-400"><span>風格化 (--s)</span><span className={theme.text}>{stylize}</span></div>
+                <input type="range" min="0" max="1000" value={stylize} onChange={e => setStylize(Number(e.target.value))} className={`w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer ${theme.slider}`} />
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between text-xs font-bold text-gray-400"><span>多樣性 (--c)</span><span className={theme.text}>{chaos}</span></div>
-                <input type="range" min="0" max="100" value={chaos} onChange={e => setChaos(Number(e.target.value))} className="w-full h-1.5 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-white" />
+                <div className="flex justify-between text-xs font-bold text-slate-400"><span>多樣性 (--c)</span><span className={theme.text}>{chaos}</span></div>
+                <input type="range" min="0" max="100" value={chaos} onChange={e => setChaos(Number(e.target.value))} className={`w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer ${theme.slider}`} />
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between text-xs font-bold text-gray-400"><span>怪異度 (--w)</span><span className={theme.text}>{weird}</span></div>
-                <input type="range" min="0" max="3000" value={weird} onChange={e => setWeird(Number(e.target.value))} className="w-full h-1.5 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-white" />
+                <div className="flex justify-between text-xs font-bold text-slate-400"><span>怪異度 (--w)</span><span className={theme.text}>{weird}</span></div>
+                <input type="range" min="0" max="3000" value={weird} onChange={e => setWeird(Number(e.target.value))} className={`w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer ${theme.slider}`} />
               </div>
             </div>
           </div>
         )}
 
-        <div className={`mb-6 p-6 rounded-2xl border ${theme.accent} border-opacity-20 ${theme.card} shadow-lg backdrop-blur-md w-full`}>
+        <div className={`mb-6 p-6 rounded-3xl border border-slate-200 bg-white/70 shadow-lg backdrop-blur-md w-full`}>
           <div className="flex flex-col md:flex-row gap-6 items-center w-full">
             <div className="flex-1 w-full">
               <h3 className={`text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-3 ${theme.text}`}><span className={`w-2 h-2 rounded-full bg-current`}></span>8. 畫面比例</h3>
               <div className="flex flex-wrap gap-3">
                 {RATIO_OPTIONS.map(r => (
-                  <button key={r.value} onClick={() => setRatio(r.value)} className={`flex flex-col items-center justify-center p-2 rounded-xl transition-all border ${ratio === r.value ? `${theme.btnActive} border-white/30` : 'bg-black/10 border-transparent hover:bg-black/20'} min-w-[60px]`}>
-                    <div className={`${r.w} ${r.h} border-2 ${ratio === r.value ? 'bg-current border-transparent' : 'border-gray-500'} rounded-[2px] opacity-80`}></div>
+                  <button key={r.value} onClick={() => setRatio(r.value)} className={`flex flex-col items-center justify-center p-2 rounded-xl transition-all border ${ratio === r.value ? 'bg-slate-800 text-white border-slate-800 shadow-md' : 'bg-white text-slate-400 border-slate-200 hover:border-slate-300'} min-w-[60px]`}>
+                    <div className={`border-2 ${r.w} ${r.h} ${ratio === r.value ? 'bg-white border-transparent' : 'border-slate-300'} rounded-[2px] opacity-80`}></div>
                     <span className="text-[10px] font-bold mt-1">{r.label}</span>
                   </button>
                 ))}
@@ -372,21 +425,21 @@ export default function App() {
             </div>
             <div className="flex-shrink-0 flex flex-col items-center gap-2">
                <h3 className={`text-[10px] font-bold uppercase tracking-widest ${theme.text} opacity-80`}>9. 全域隨機</h3>
-               <button onClick={() => handleGlobalRandom(currentData)} className={`w-14 h-14 rounded-2xl ${theme.btnActive} flex items-center justify-center transition-all hover:scale-105 shadow-lg ${diceRotate ? 'rotate-[360deg] scale-90' : ''}`}><span className="text-2xl">🎲</span></button>
+               <button onClick={() => handleGlobalRandom(currentData)} className={`w-14 h-14 rounded-2xl bg-white border border-slate-200 text-slate-800 flex items-center justify-center transition-all hover:scale-105 shadow-md hover:shadow-xl ${diceRotate ? 'rotate-[360deg] scale-90' : ''}`}><span className="text-2xl">🎲</span></button>
             </div>
-            <button onClick={handleGenerate} className={`flex-1 w-full py-4 rounded-xl font-bold text-xl tracking-[0.2em] shadow-lg transition-all transform active:scale-[0.99] ${theme.btnActive}`}>GENERATE</button>
+            <button onClick={handleGenerate} className={`flex-1 w-full py-4 rounded-xl font-bold text-xl tracking-[0.2em] shadow-xl transition-all transform active:scale-[0.99] ${theme.btnActive}`}>GENERATE</button>
           </div>
         </div>
         
         {outputParts.length > 0 && (
-          <div className={`p-6 rounded-2xl border ${theme.accent} border-opacity-20 bg-[#1e1e1e]/90 shadow-2xl animate-in slide-in-from-bottom-2 relative group w-full`}>
-            <div className="font-mono text-xs md:text-sm leading-relaxed break-all text-gray-300">
+          <div className={`p-6 rounded-2xl border border-slate-200 bg-white/90 shadow-xl animate-in slide-in-from-bottom-2 relative group w-full`}>
+            <div className="font-mono text-xs md:text-sm leading-relaxed break-all text-slate-600">
                 {outputParts.map((part, index) => (
-                    <span key={index} className={`${part.type === 'subject' ? 'text-green-400 font-bold' : part.type === 'action' ? 'text-yellow-400' : part.type === 'env' ? 'text-blue-400' : part.type === 'style' ? 'text-purple-400 italic' : part.type === 'param' ? 'text-orange-400' : part.type === 'negative' ? 'text-red-400 opacity-70' : 'text-gray-500'}`}>{part.text}{index < outputParts.length - 1 ? ", " : ""}</span>
+                    <span key={index} className={`${part.type === 'subject' ? 'text-emerald-600 font-bold' : part.type === 'action' ? 'text-amber-600' : part.type === 'env' ? 'text-blue-600' : part.type === 'style' ? 'text-purple-600 italic' : part.type === 'param' ? 'text-rose-600' : part.type === 'negative' ? 'text-red-400 opacity-70' : 'text-slate-400'}`}>{part.text}{index < outputParts.length - 1 ? ", " : ""}</span>
                 ))}
             </div>
             <div className="absolute top-4 right-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
-                <button onClick={() => {navigator.clipboard.writeText(getFullString()); alert('Copied!');}} className="bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded text-xs border border-white/10">Copy</button>
+                <button onClick={() => {navigator.clipboard.writeText(getFullString()); alert('Copied!');}} className="bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded text-xs border border-slate-200 shadow-sm">Copy</button>
             </div>
           </div>
         )}
@@ -397,10 +450,10 @@ export default function App() {
 
 function Section({ title, theme, children, onRandom }: any) {
   return (
-    <div className={`mb-6 p-5 rounded-2xl border ${theme.accent} border-opacity-20 ${theme.card} shadow-sm relative group w-full backdrop-blur-sm`}>
+    <div className={`mb-6 p-5 rounded-3xl border border-slate-200 bg-white/60 shadow-sm relative group w-full backdrop-blur-sm`}>
       <div className="flex justify-between items-center mb-4">
         <h3 className={`text-xs font-bold uppercase flex items-center gap-2 ${theme.text}`}><span className={`w-1.5 h-1.5 rounded-full bg-current`}></span>{title}</h3>
-        <button onClick={onRandom} className={`p-1.5 rounded bg-black/10 hover:bg-white/10 text-gray-400 hover:text-white transition-all`} title="隨機"><span className="text-xs">🎲</span></button>
+        <button onClick={onRandom} className={`p-1.5 rounded bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-all shadow-sm border border-slate-100`} title="隨機"><span className="text-xs">🎲</span></button>
       </div>
       {children}
     </div>
@@ -409,7 +462,7 @@ function Section({ title, theme, children, onRandom }: any) {
 
 function SolidBtn({ label, icon, active, onClick, theme, isWide }: any) {
   return (
-    <button onClick={onClick} className={`py-3 px-3 rounded-xl text-[10px] md:text-xs font-bold transition-all duration-200 text-center border ${active ? theme.btnActive : `${theme.btn} border-transparent`} ${isWide ? 'text-xs' : 'truncate'} flex items-center justify-center gap-2 w-full`}>
+    <button onClick={onClick} className={`py-3 px-3 rounded-2xl text-[10px] md:text-xs font-bold transition-all duration-200 text-center border ${active ? theme.btnActive : `${theme.btn} border-slate-200 shadow-sm`} ${isWide ? 'text-xs' : 'truncate'} flex items-center justify-center gap-2 w-full`}>
       {icon && <span className="text-sm md:text-base opacity-80">{icon}</span>}
       <span className="truncate">{label}</span>
     </button>
